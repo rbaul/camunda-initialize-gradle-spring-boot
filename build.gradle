@@ -1,0 +1,52 @@
+buildscript {
+    ext {
+        set('camundaVersion', "7.15.0")
+    }
+}
+
+plugins {
+	id 'org.springframework.boot' version '2.5.4'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'com.example.camunda'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '16'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    //Camunda WE
+    implementation 'org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest'
+    implementation 'org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp'
+
+    // Not working
+    //    implementation 'org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp-core:7.15.0'
+
+    // Additional, not necessary
+//    implementation 'org.camunda.bpm.springboot:camunda-engine-plugin-spin'
+//    implementation 'org.camunda.bpm.springboot:camunda-spin-dataformat-all'
+
+    // Swagger
+    implementation 'io.springfox:springfox-boot-starter:3.0.0'
+
+    implementation 'com.h2database:h2'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.camunda.bpm:camunda-bom:${camundaVersion}"
+    }
+}
+
+test {
+	useJUnitPlatform()
+}
